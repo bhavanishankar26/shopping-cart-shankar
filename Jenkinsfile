@@ -63,6 +63,7 @@ pipeline {
          steps {
            script {
             kubernetesDeploy(configs: "deploymentservice.yml", kubeconfigId: "Kubernetes")
+            sh "aws eks --region ap-south-1 update-kubeconfig --name terraform-eks-demo"
             sh "kubectl apply -f deploymentservice.yml"
            }
         }
