@@ -7,12 +7,6 @@ pipeline {
         AWS_DEFAULT_REGION = "ap-south-1"
     }
     
-    tools {
-        jdk 'jdk11'
-        maven 'maven3'
-        kubectl 'kubectl'
-    }
-    
     // environment {
     //     SCANNER_HOME= tool 'sonar-scanner'
     // }
