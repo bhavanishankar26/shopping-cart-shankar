@@ -7,10 +7,11 @@ pipeline {
         AWS_DEFAULT_REGION = "ap-south-1"
     }
     
-    // tools {
-    //     jdk 'jdk11'
-    //     maven 'maven3'
-    // }
+    tools {
+        jdk 'jdk11'
+        maven 'maven3'
+        kubectl 'kubectl'
+    }
     
     // environment {
     //     SCANNER_HOME= tool 'sonar-scanner'
@@ -69,9 +70,6 @@ pipeline {
                 script {
                     dir('.') {
                         sh "aws eks --region ap-south-1 update-kubeconfig --name terraform-eks-demo"
-                        sh "curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.23.6/bin/linux/amd64/kubectl"
-                        sh "chmod +x ./kubectl"
-                        sh "mkdir -p $HOME/bin && sudo cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin"
                         sh "kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.0/deploy/static/provider/cloud/deploy.yaml"
                         sh "kubectl apply -f deploymentservice.yml"
                     }
