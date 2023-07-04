@@ -34,30 +34,30 @@ pipeline {
     //               }
     //     }
         
-    //     stage('OWASP Scan') {
-    //         steps {
-    //             dependencyCheck additionalArguments: '--scan ./ ', odcInstallation: 'DP'
-    //             dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
-    //         }
-    //     }
+        stage('OWASP Scan') {
+            steps {
+                dependencyCheck additionalArguments: '--scan ./ ', odcInstallation: 'DP'
+                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+            }
+        }
         
-    //       stage('Build') {
-    //         steps {
-    //             sh "mvn clean package -DskipTests=true"
-    //         }
-    //     }
+          stage('Build') {
+            steps {
+                sh "mvn clean package -DskipTests=true"
+            }
+        }
         
-    //     stage('Docker Build & Push') {
-    // steps {
-    //     script {
-    //         withDockerRegistry(credentialsId: 'f0d72c9f-c017-41dd-8222-9dcfe88f669f', toolName: 'docker') {
-    //             sh "docker build -t shopping-cart:latest -f docker/Dockerfile ."
-    //             sh "docker tag shopping-cart:latest gadebhavani26/shopping-cart:latest"
-    //             sh "docker push gadebhavani26/shopping-cart:latest"
-    //         }
-    //     }
-    // }
-    //     }
+        stage('Docker Build & Push') {
+    steps {
+        script {
+            withDockerRegistry(credentialsId: 'f0d72c9f-c017-41dd-8222-9dcfe88f669f', toolName: 'docker') {
+                sh "docker build -t shopping-cart:latest -f docker/Dockerfile ."
+                sh "docker tag shopping-cart:latest gadebhavani26/shopping-cart:latest"
+                sh "docker push gadebhavani26/shopping-cart:latest"
+            }
+        }
+    }
+        }
 
           stage("Deploy to EKS") {
             steps {
