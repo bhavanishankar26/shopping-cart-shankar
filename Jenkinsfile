@@ -67,9 +67,8 @@ pipeline {
           stage("Deploy to EKS") {
             steps {
                 script {
-                    dir('./') {
+                    dir('.') {
                         sh "aws eks --region ap-south-1 update-kubeconfig --name terraform-eks-demo"
-                        sh "kubectl apply -f 
                         sh "kubectl apply -f deploymentservice.yml"
                     }
                 }
