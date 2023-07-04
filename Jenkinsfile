@@ -1,5 +1,11 @@
 pipeline {
     agent any
+
+     environment {
+        AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
+        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+        AWS_DEFAULT_REGION = "ap-south-1"
+    }
     
     // tools {
     //     jdk 'jdk11'
@@ -63,6 +69,7 @@ pipeline {
                 script {
                     dir('./') {
                         sh "aws eks --region ap-south-1 update-kubeconfig --name terraform-eks-demo"
+                        sh "kubectl apply -f 
                         sh "kubectl apply -f deploymentservice.yml"
                     }
                 }
